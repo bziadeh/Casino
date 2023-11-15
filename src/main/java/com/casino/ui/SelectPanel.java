@@ -3,9 +3,9 @@ package com.casino.ui;
 import com.casino.Casino;
 import javax.swing.JLabel;
 
-public class AdminPanel extends AbstractPanel {
+public class SelectPanel extends AbstractPanel {
 
-    public AdminPanel(Casino casino) {
+    public SelectPanel(Casino casino) {
         super(casino);
     }
 
