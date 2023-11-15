@@ -1,67 +1,60 @@
 package com.casino;
 
-import com.casino.games.Blackjack;
-import com.casino.games.Roulette;
 import com.casino.ui.AdminPanel;
 import com.casino.ui.LoginPanel;
 import com.casino.ui.SelectPanel;
-import com.formdev.flatlaf.FlatLightLaf;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import lombok.Getter;
-import javax.swing.JFrame;
-import java.awt.CardLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 
-public class Casino extends JFrame {
+import java.util.HashMap;
+import java.util.Map;
 
-    @Getter private DatabaseManager database;
-    @Getter private CardLayout layout;
+public class Casino extends Application {
 
-    public void onEnable() {
-        database = DatabaseManager.get();
-        layout = new CardLayout();
+    @Getter
+    private static Casino instance;
 
-        // Create Static Panels
-        LoginPanel login = new LoginPanel(this);
-        SelectPanel select = new SelectPanel(this);
-        AdminPanel admin = new AdminPanel(this);
+    // Keeps track of all loaded scenes.
+    @Getter
+    private final Map<String, Parent> scenes = new HashMap<>();
 
-        Container container = getContentPane();
-        container.setLayout(layout);
+    // Allows us to read and write to the database.
+    @Getter
+    private final DatabaseManager database = DatabaseManager.get();
 
-        // Add Static Panels to ContentPane
-        container.add(login, "login");
-        container.add(select, "select");
-        container.add(admin, "admin");
+    // Allows us to swap scenes from other modules.
+    @Getter
+    private Stage primaryStage;
 
-        // Handle Login Success
-        login.onSuccess((user) -> {
-            Blackjack blackjack = new Blackjack(this, user);
-            Roulette roulette = new Roulette(this, user);
-            container.add(blackjack, "blackjack");
-            container.add(roulette, "roulette");
+    @Override
+    public void start(Stage stage) throws Exception {
+        instance = this;
+        primaryStage = stage;
+
+        ClassLoader loader = getClass().getClassLoader();
+        FXMLLoader loginLoader = new FXMLLoader(loader.getResource("Login.fxml"));
+        FXMLLoader selectLoader = new FXMLLoader(loader.getResource("Select.fxml"));
+        FXMLLoader adminLoader = new FXMLLoader(loader.getResource("Admin.fxml"));
+
+        Parent loginParent = loginLoader.load();
+        Parent selectParent = selectLoader.load();
+        Parent adminParent = adminLoader.load();
+
+        LoginPanel loginPanel = loginLoader.getController();
+        loginPanel.onSuccess((user) -> {
+            ((SelectPanel)selectLoader.getController()).setUser(user);
+            ((AdminPanel)adminLoader.getController()).setUser(user);
         });
-        open();
-    }
 
-    private void open() {
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension dimension = toolkit.getScreenSize();
+        scenes.put("login", loginParent);
+        scenes.put("select", selectParent);
+        scenes.put("admin", adminParent);
 
-        // Calculate New Width and Height
-        int newWidth = (int) (dimension.getWidth() / 1.5);
-        int newHeight = (int) (dimension.getHeight() / 1.25);
-
-        // Set JFrame Settings
-        setSize(newWidth, newHeight);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        FlatLightLaf.setup(); // setup fancy Swing UI framework before creating swing components
-        new Casino().onEnable();
+        stage.setScene(new Scene(loginParent));
+        stage.show();
     }
 }

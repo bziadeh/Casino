@@ -3,9 +3,8 @@ package com.casino.games;
 import com.casino.Casino;
 import com.casino.user.User;
 import lombok.Getter;
-import javax.swing.JPanel;
 
-public abstract class Game extends JPanel {
+public abstract class Game {
 
     @Getter private final Casino casino;
     @Getter private final User user;

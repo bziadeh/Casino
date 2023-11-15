@@ -1,17 +1,12 @@
 package com.casino.ui;
 
-import com.casino.Casino;
-import javax.swing.JLabel;
+import com.casino.user.User;
 
-public class SelectPanel extends AbstractPanel {
+public class SelectPanel {
 
-    public SelectPanel(Casino casino) {
-        super(casino);
-    }
+    private User user;
 
-    @Override
-    public void onEnable() {
-        add(new JLabel("Admin Page"));
-        setVisible(true);
+    public void setUser(User user) {
+        this.user = user;
     }
 }

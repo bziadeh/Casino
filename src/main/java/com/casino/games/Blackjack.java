@@ -2,7 +2,6 @@ package com.casino.games;
 
 import com.casino.Casino;
 import com.casino.user.User;
-import javax.swing.JLabel;
 
 public class Blackjack extends Game {
 
@@ -13,8 +12,6 @@ public class Blackjack extends Game {
     @Override
     public void startGame() {
         // todo: implement startGame()
-        add(new JLabel("Blackjack Page"));
-        setVisible(true);
     }
 
     @Override

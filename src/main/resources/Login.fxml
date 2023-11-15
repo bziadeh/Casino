@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.casino.ui.LoginPanel">
+   <children>
+      <Text layoutX="516.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Casino Games">
+         <font>
+            <Font name="Lucida Bright Demibold" size="35.0" />
+         </font>
+      </Text>
+      <Text layoutX="374.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="An entertaining casino experience in the comfort of your own home.">
+         <font>
+            <Font name="Lucida Bright" size="16.0" />
+         </font>
+      </Text>
+      <Pane layoutX="485.0" layoutY="217.0" prefHeight="396.0" prefWidth="310.0">
+         <children>
+            <Text layoutX="19.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+               <font>
+                  <Font name="Lucida Bright" size="14.0" />
+               </font>
+            </Text>
+            <TextField layoutX="21.0" layoutY="57.0" prefHeight="26.0" prefWidth="269.0" />
+            <Text layoutX="21.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+               <font>
+                  <Font name="Lucida Bright" size="14.0" />
+               </font>
+            </Text>
+            <Button fx:id="loginButton" focusTraversable="false" layoutX="31.0" layoutY="192.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="247.0" text="Login" />
+            <Text fill="#00000040" layoutX="86.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?">
+               <font>
+                  <Font name="Lucida Bright" size="12.0" />
+               </font>
+            </Text>
+            <Line endX="100.0" layoutX="-20.0" layoutY="276.0" startX="25.0" stroke="#0000003f" />
+            <Line endX="100.0" layoutX="205.0" layoutY="276.0" startX="25.0" stroke="#0000003f" />
+            <Text fill="#00000040" layoutX="31.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Specify a name and password, then click create to start a new account." textAlignment="CENTER" wrappingWidth="247.17041015625">
+               <font>
+                  <Font name="Lucida Bright" size="10.0" />
+               </font>
+            </Text>
+            <PasswordField layoutX="21.0" layoutY="119.0" prefHeight="26.0" prefWidth="269.0" style="-fx-font-size: 10;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </PasswordField>
+            <Text fill="#aacfeb" layoutX="100.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create an Account">
+               <font>
+                  <Font name="Lucida Bright" size="12.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </children>
+</Pane>
