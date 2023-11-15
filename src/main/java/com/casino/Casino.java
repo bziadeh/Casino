@@ -7,9 +7,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Getter;
 
+import javax.imageio.ImageIO;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +56,8 @@ public class Casino extends Application {
         scenes.put("select", selectParent);
         scenes.put("admin", adminParent);
 
+        stage.setTitle("Casino Games");
+        stage.getIcons().add(new Image("/Icon.png"));
         stage.setScene(new Scene(loginParent));
         stage.show();
     }
