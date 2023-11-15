@@ -22,12 +22,15 @@ public class Casino extends JFrame {
         database = DatabaseManager.get();
         layout = new CardLayout();
 
+        // Create Static Panels
         LoginPanel login = new LoginPanel(this);
-        AdminPanel admin = new AdminPanel(this);
         SelectPanel select = new SelectPanel(this);
+        AdminPanel admin = new AdminPanel(this);
 
         Container container = getContentPane();
         container.setLayout(layout);
+
+        // Add Static Panels to ContentPane
         container.add(login, "login");
         container.add(select, "select");
         container.add(admin, "admin");
@@ -36,11 +39,9 @@ public class Casino extends JFrame {
         login.onSuccess((user) -> {
             Blackjack blackjack = new Blackjack(this, user);
             Roulette roulette = new Roulette(this, user);
-
             container.add(blackjack, "blackjack");
             container.add(roulette, "roulette");
         });
-
         open();
     }
 
@@ -48,17 +49,15 @@ public class Casino extends JFrame {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
 
-        int newWidth = (int) (dimension.getWidth() / 1.25);
+        // Calculate New Width and Height
+        int newWidth = (int) (dimension.getWidth() / 1.5);
         int newHeight = (int) (dimension.getHeight() / 1.25);
 
+        // Set JFrame Settings
         setSize(newWidth, newHeight);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // center on screen
+        setLocationRelativeTo(null);
         setVisible(true);
-    }
-
-    public void onDisable() {
-        // todo: implement onDisable()
     }
 
     public static void main(String[] args) {
