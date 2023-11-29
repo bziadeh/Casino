@@ -1,14 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.casino.ui.SelectPanel">
    <children>
-      <Text layoutX="567.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select">
+      <Text layoutX="495.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a Game">
          <font>
             <Font name="Lucida Bright Demibold" size="35.0" />
+         </font>
+      </Text>
+      <Pane layoutX="479.0" layoutY="204.0" prefHeight="388.0" prefWidth="277.0" style="-fx-border-color: black;">
+         <children>
+            <Text layoutX="73.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Blackjack">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="27.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="63.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/blackjack.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="152.0" layoutY="204.0" opacity="0.18" prefHeight="388.0" prefWidth="277.0" style="-fx-border-color: black;">
+         <children>
+            <Text layoutX="82.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Roulette">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="27.0" />
+               </font>
+            </Text>
+            <Text layoutX="79.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coming Soon">
+               <font>
+                  <Font name="Lucida Bright" size="18.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="64.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/roulette.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="806.0" layoutY="204.0" opacity="0.18" prefHeight="388.0" prefWidth="277.0" style="-fx-border-color: black;">
+         <children>
+            <Text layoutX="99.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poker">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="27.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="64.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/poker.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="78.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coming Soon">
+               <font>
+                  <Font name="Lucida Bright" size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <ImageView fitHeight="42.0" fitWidth="38.0" layoutX="36.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons/account.PNG" />
+         </image>
+      </ImageView>
+      <Text layoutX="74.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username">
+         <font>
+            <Font name="Lucida Bright Demibold" size="13.0" />
+         </font>
+      </Text>
+      <Text layoutX="74.0" layoutY="72.0" opacity="0.21" strokeType="OUTSIDE" strokeWidth="0.0" text="Logged In">
+         <font>
+            <Font name="Lucida Bright Demibold" size="9.0" />
+         </font>
+      </Text>
+      <Text layoutX="532.0" layoutY="646.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check us out on social media">
+         <font>
+            <Font name="Lucida Bright" size="12.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="32.0" fitWidth="44.0" layoutX="596.0" layoutY="658.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons/twitter.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="32.0" fitWidth="26.0" layoutX="572.0" layoutY="659.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons/facebook.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="38.0" layoutX="639.0" layoutY="659.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons/instagram.jpg" />
+         </image>
+      </ImageView>
+      <Text layoutX="451.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a game you would like to play.">
+         <font>
+            <Font name="Lucida Bright" size="16.0" />
          </font>
       </Text>
    </children>

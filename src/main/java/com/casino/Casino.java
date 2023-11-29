@@ -10,8 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.Getter;
-
-import javax.imageio.ImageIO;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,14 +49,14 @@ public class Casino extends Application {
             ((SelectPanel)selectLoader.getController()).setUser(user);
             ((AdminPanel)adminLoader.getController()).setUser(user);
         });
-
         scenes.put("login", loginParent);
         scenes.put("select", selectParent);
         scenes.put("admin", adminParent);
 
         stage.setTitle("Casino Games");
-        stage.getIcons().add(new Image("/Icon.png"));
+        stage.getIcons().add(new Image("icons/icon.png"));
         stage.setScene(new Scene(loginParent));
+        stage.setResizable(false);
         stage.show();
     }
 }

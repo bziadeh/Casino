@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-
 import java.util.function.Consumer;
 
 public class LoginPanel {
@@ -25,8 +24,6 @@ public class LoginPanel {
 
         // temp
         stage.hide();
-        stage.setWidth(1280);
-        stage.setHeight(720);
         stage.getScene().setRoot(casino.getScenes().get("select"));
         stage.centerOnScreen();
         stage.show();
