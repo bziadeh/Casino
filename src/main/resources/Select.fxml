@@ -25,6 +25,11 @@
                   <Image url="@icons/blackjack.png" />
                </image>
             </ImageView>
+            <Text layoutX="52.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click to play">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="27.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
       <Pane layoutX="152.0" layoutY="204.0" opacity="0.18" prefHeight="388.0" prefWidth="277.0" style="-fx-border-color: black;">
@@ -70,7 +75,7 @@
             <Image url="@icons/account.PNG" />
          </image>
       </ImageView>
-      <Text layoutX="74.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username">
+      <Text fx:id="usernameText" layoutX="74.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username">
          <font>
             <Font name="Lucida Bright Demibold" size="13.0" />
          </font>
