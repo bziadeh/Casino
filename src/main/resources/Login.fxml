@@ -28,7 +28,7 @@
                   <Font name="Lucida Bright" size="14.0" />
                </font>
             </Text>
-            <TextField fx:id="usernameField" layoutX="21.0" layoutY="57.0" prefHeight="26.0" prefWidth="269.0" />
+            <TextField fx:id="usernameField" layoutX="21.0" layoutY="57.0" onKeyPressed="#onKeyPress" prefHeight="26.0" prefWidth="269.0" />
             <Text layoutX="21.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                <font>
                   <Font name="Lucida Bright" size="14.0" />
@@ -50,7 +50,7 @@
                   <Font name="Lucida Bright" size="10.0" />
                </font>
             </Text>
-            <PasswordField fx:id="passwordField" layoutX="21.0" layoutY="119.0" prefHeight="26.0" prefWidth="269.0" style="-fx-font-size: 10;">
+            <PasswordField fx:id="passwordField" layoutX="21.0" layoutY="119.0" onKeyPressed="#onKeyPress" prefHeight="26.0" prefWidth="269.0" style="-fx-font-size: 10;">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>

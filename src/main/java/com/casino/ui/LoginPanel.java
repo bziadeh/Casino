@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -20,6 +22,13 @@ public class LoginPanel {
     @FXML private Text invalidPassword;
 
     private Consumer<User> onSuccess;
+
+    @FXML
+    public void onKeyPress(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)) {
+            login(null);
+        }
+    }
 
     @FXML
     public void login(ActionEvent evt) {
