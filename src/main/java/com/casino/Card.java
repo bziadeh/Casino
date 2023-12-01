@@ -11,12 +11,12 @@ public class Card {
 	private String rank;
 
 	public Card(String suit, String rank) {
-		this.suit = suit;
-		this.rank = rank;
+	    this.suit = suit;
+	    this.rank = rank;
 	}
 
 	@Override
 	public String toString() {
-		return "Suit: " + suit + " and Rank: " + rank;
+	    return "Suit: " + suit + " and Rank: " + rank;
 	}
 }
