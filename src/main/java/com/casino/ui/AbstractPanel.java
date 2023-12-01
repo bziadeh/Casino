@@ -13,5 +13,5 @@ public abstract class AbstractPanel {
         handle(user);
     }
 
-    abstract void handle(User user);
+    public abstract void handle(User user);
 }

@@ -10,7 +10,7 @@ public class SelectPanel extends AbstractPanel {
     @FXML private Text usernameText;
 
     @Override
-    void handle(User user) {
+    public void handle(User user) {
         usernameText.setText(user.getUsername());
     }
 

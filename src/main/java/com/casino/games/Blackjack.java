@@ -1,21 +1,19 @@
 package com.casino.games;
 
-import com.casino.Casino;
+import com.casino.ui.AbstractPanel;
 import com.casino.user.User;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
-public class Blackjack extends Game {
-
-    public Blackjack(Casino casino, User user) {
-        super(casino, user);
-    }
+public class Blackjack extends AbstractPanel {
 
     @Override
-    public void startGame() {
-        // todo: implement startGame()
+    public void handle(User user) {
+
     }
 
-    @Override
-    public void exitGame() {
-        // todo: implement exitGame()
+    @FXML
+    public void onHit() {
+        System.out.println("Hit button clicked.");
     }
 }

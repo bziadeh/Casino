@@ -1,7 +1,7 @@
 package com.casino;
 
+import com.casino.games.Blackjack;
 import com.casino.ui.AdminPanel;
-import com.casino.ui.BlackjackPanel;
 import com.casino.ui.LoginPanel;
 import com.casino.ui.SelectPanel;
 import javafx.application.Application;
@@ -16,17 +16,13 @@ import java.util.Map;
 
 public class Casino extends Application {
 
-    @Getter
-    private static Casino instance;
+    @Getter private static Casino instance;
 
-    @Getter
-    private final Map<String, Parent> scenes = new HashMap<>();
+    @Getter private final Map<String, Parent> scenes = new HashMap<>();
 
-    @Getter
-    private final DatabaseManager database = DatabaseManager.get();
+    @Getter private final DatabaseManager database = DatabaseManager.get();
 
-    @Getter
-    private Stage primaryStage;
+    @Getter private Stage primaryStage;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -48,7 +44,7 @@ public class Casino extends Application {
         loginPanel.onSuccess((user) -> {
             ((SelectPanel)selectLoader.getController()).setUser(user);
             ((AdminPanel)adminLoader.getController()).setUser(user);
-            ((BlackjackPanel)blackjackLoader.getController()).setUser(user);
+            ((Blackjack)blackjackLoader.getController()).setUser(user);
         });
 
         scenes.put("login", loginParent);

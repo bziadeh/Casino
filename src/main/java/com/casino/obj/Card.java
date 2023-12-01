@@ -1,4 +1,4 @@
-package com.casino;
+package com.casino.obj;
 
 import lombok.Getter;
 
