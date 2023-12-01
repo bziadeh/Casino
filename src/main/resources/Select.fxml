@@ -13,7 +13,7 @@
             <Font name="Lucida Bright Demibold" size="35.0" />
          </font>
       </Text>
-      <Pane layoutX="479.0" layoutY="204.0" prefHeight="388.0" prefWidth="277.0" style="-fx-border-color: black;">
+      <Pane layoutX="479.0" layoutY="204.0" onMouseClicked="#startBlackjack" prefHeight="388.0" prefWidth="277.0" style="-fx-border-color: black;">
          <children>
             <Text layoutX="73.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Blackjack">
                <font>

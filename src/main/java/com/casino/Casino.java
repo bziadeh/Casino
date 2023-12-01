@@ -39,10 +39,12 @@ public class Casino extends Application {
         FXMLLoader loginLoader = new FXMLLoader(loader.getResource("Login.fxml"));
         FXMLLoader selectLoader = new FXMLLoader(loader.getResource("Select.fxml"));
         FXMLLoader adminLoader = new FXMLLoader(loader.getResource("Admin.fxml"));
+        FXMLLoader blackjackLoader = new FXMLLoader(loader.getResource("Blackjack.fxml"));
 
         Parent loginParent = loginLoader.load();
         Parent selectParent = selectLoader.load();
         Parent adminParent = adminLoader.load();
+        Parent blackjackParent = blackjackLoader.load();
 
         LoginPanel loginPanel = loginLoader.getController();
         loginPanel.onSuccess((user) -> {
@@ -52,6 +54,7 @@ public class Casino extends Application {
         scenes.put("login", loginParent);
         scenes.put("select", selectParent);
         scenes.put("admin", adminParent);
+        scenes.put("blackjack", blackjackParent);
 
         stage.setTitle("Casino Games");
         stage.getIcons().add(new Image("icons/icon.png"));
