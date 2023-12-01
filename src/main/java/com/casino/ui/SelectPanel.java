@@ -17,7 +17,7 @@ public class SelectPanel {
     }
 
     @FXML
-    public void startBlackjack () {
+    public void startBlackjack() {
         Casino casino = Casino.getInstance();
         casino.getPrimaryStage().getScene().setRoot(casino.getScenes().get("blackjack"));
     }
