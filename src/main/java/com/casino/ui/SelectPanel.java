@@ -1,18 +1,16 @@
 package com.casino.ui;
 
 import com.casino.Casino;
-import com.casino.Deck;
 import com.casino.user.User;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
-public class SelectPanel {
+public class SelectPanel extends AbstractPanel {
 
     @FXML private Text usernameText;
-    private User user;
 
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    void handle(User user) {
         usernameText.setText(user.getUsername());
     }
 
