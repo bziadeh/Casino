@@ -15,15 +15,15 @@ public class Deck {
 	private final String rank[] = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "King", "Queen", "Ace" };
 	
 	public Deck() {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 13; j++) {
-				cards.add(new Card(suit[i], rank[j]));
-			}
-		}
-		shuffle();
+	    for (int i = 0; i < 4; i++) {
+	        for (int j = 0; j < 13; j++) {
+		    cards.add(new Card(suit[i], rank[j]));
+	        }
+	    }
+            shuffle();
 	}
 
 	public void shuffle() {
-		Collections.shuffle(cards);
+	    Collections.shuffle(cards);
 	}
 }
