@@ -37,7 +37,7 @@ public class LoginPanel {
         if(!validateCredentials(username, password)) {
             return;
         }
-        User user = new User(username, password);
+        User user = new User(username, password, 1000.0);
         if(onSuccess != null) {
             onSuccess.accept(user);
         }
