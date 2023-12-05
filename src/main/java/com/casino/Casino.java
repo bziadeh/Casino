@@ -14,15 +14,16 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public class Casino extends Application {
 
     @Getter private static Casino instance;
 
-    @Getter private final Map<String, Parent> scenes = new HashMap<>();
+    private final Map<String, Parent> scenes = new HashMap<>();
 
-    @Getter private final DatabaseManager database = DatabaseManager.get();
+    private final DatabaseManager database = DatabaseManager.get();
 
-    @Getter private Stage primaryStage;
+    private Stage primaryStage;
 
     @Override
     public void start(Stage stage) throws Exception {

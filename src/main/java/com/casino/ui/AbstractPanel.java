@@ -5,8 +5,7 @@ import lombok.Getter;
 
 public abstract class AbstractPanel {
 
-    @Getter
-    private User user;
+    @Getter private User user;
 
     public void setUser(User user) {
         this.user = user;
