@@ -6,7 +6,6 @@ import com.casino.obj.Hand;
 import com.casino.user.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -33,6 +32,7 @@ public class Blackjack extends Game {
     // Components that display information on the players current bet
     @FXML private Text totalBetText;
     @FXML private Button totalBetButton;
+    @FXML private TextField betField;
 
     // Store dynamic image views to delete them when the game finishes
     private final List<ImageView> playerImageViews = new ArrayList<>();
@@ -44,6 +44,10 @@ public class Blackjack extends Game {
 
     @Override
     public void startGame() {
+        if(!initialBetPane.isVisible()) {
+            initialBetPane.setVisible(true);
+        }
+
         start = (bet) -> {
             // Update initial bet display text
             totalBetText.setText(String.format("Total Bet:   $%.1f", bet));
@@ -71,6 +75,14 @@ public class Blackjack extends Game {
         playerHand.clear();
         dealerHand.clear();
 
+        totalBetText.setText("Total Bet:   $0.0");
+        totalBetButton.setText("0");
+        betField.setText("");
+
+        playerCardOneView.setImage(null);
+        playerCardTwoView.setImage(null);
+        dealerCardOneView.setImage(null);
+
         // Clean up dynamically created image views
         playerImageViews.removeIf(view -> {
             pane.getChildren().remove(view);
@@ -81,6 +93,12 @@ public class Blackjack extends Game {
             pane.getChildren().remove(view);
             return true;
         });
+    }
+
+    @FXML
+    public void restart() {
+        stopGame();
+        startGame();
     }
 
     @FXML
