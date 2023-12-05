@@ -21,7 +21,6 @@ public class Deck {
 
     public void repopulate() {
         cards.clear();
-
         for (int i = 0; i < suit.length; i++) {
             for (int j = 0; j < rank.length; j++) {
                 int value;

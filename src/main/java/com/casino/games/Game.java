@@ -20,8 +20,8 @@ public abstract class Game extends AbstractPanel {
             public void run() {
                 // Listen and check if a player has started or exited this game
                 while(true) {
-                    final Casino casino = Casino.getInstance();
-                    final Parent gameParent = casino.getScenes().get(getGameId());
+                    Casino casino = Casino.getInstance();
+                    Parent gameParent = casino.getScenes().get(getGameId());
 
                     Thread.sleep(100);
                     if(casino.getPrimaryStage().getScene() == null)
