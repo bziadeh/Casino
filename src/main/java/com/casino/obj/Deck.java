@@ -12,12 +12,19 @@ public class Deck {
     private final List<Card> cards = new ArrayList<>();
 
     private final String suit[] = { "Hearts", "Clubs", "Diamonds", "Spades" };
+
     private final String rank[] = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "King", "Queen", "Ace" };
 
     public Deck() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 13; j++) {
-                cards.add(new Card(suit[i], rank[j]));
+                int value;
+                try {
+                    value = Integer.parseInt(rank[j]);
+                } catch (NumberFormatException e) {
+                    value = j < 12 ? 10 : 11;
+                }
+                cards.add(new Card(suit[i], rank[j], value));
             }
         }
         shuffle();

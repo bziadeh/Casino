@@ -10,9 +10,13 @@ public class Card {
     @Getter
     private String rank;
 
-    public Card(String suit, String rank) {
+    @Getter
+    private int value;
+
+    public Card(String suit, String rank, int value) {
         this.suit = suit;
         this.rank = rank;
+        this.value = value;
     }
 
     @Override
