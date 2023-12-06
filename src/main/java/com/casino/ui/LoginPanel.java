@@ -1,6 +1,7 @@
 package com.casino.ui;
 
 import com.casino.Casino;
+import com.casino.DatabaseManager;
 import com.casino.user.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,31 +53,18 @@ public class LoginPanel {
     }
 
     private boolean validateCredentials(String username, String password) {
+        Casino casino = Casino.getInstance();
         if(username.isEmpty()) {
-            displayError(invalidUsername);
+            casino.displayError(invalidUsername);
             return false;
         }
         if(password.isEmpty()) {
-            displayError(invalidPassword);
+            casino.displayError(invalidPassword);
             return false;
         }
+        DatabaseManager database = casino.getDatabase();
         // todo: other checks (database)
         return true;
-    }
-
-    public void displayError(Text text) {
-        if(text.isVisible()) {
-            return;
-        }
-        text.setVisible(true);
-        new Thread(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            text.setVisible(false);
-        }).start();
     }
 
     public void onSuccess(Consumer<User> onSuccess) {

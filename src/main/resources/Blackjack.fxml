@@ -13,7 +13,7 @@
    <children>
       <Button fx:id="totalBetButton" focusTraversable="false" layoutX="580.0" layoutY="520.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="60.0" style="-fx-background-radius: 5em;" text="0">
          <font>
-            <Font name="Lucida Bright" size="12.0" />
+            <Font name="Lucida Bright" size="11.0" />
          </font>
       </Button>
       <Label layoutX="41.0" layoutY="38.0" text="Blackjack">
@@ -38,18 +38,18 @@
       </Button>
       <ImageView fx:id="playerCardOneView" fitHeight="144.0" fitWidth="99.0" layoutX="498.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="playerCardTwoView" fitHeight="144.0" fitWidth="99.0" layoutX="622.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="623.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="cardBackView" fitHeight="150.0" fitWidth="200.0" layoutX="623.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@cards/back_of_card.PNG" />
          </image>
       </ImageView>
       <ImageView fx:id="dealerCardOneView" fitHeight="144.0" fitWidth="99.0" layoutX="498.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" />
-      <Text fx:id="notEnoughFunds" fill="RED" layoutX="847.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You do not have enough funds." visible="false">
+      <Text fx:id="insufficientFundsError" fill="RED" layoutX="694.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You do not have enough funds." visible="false">
          <font>
             <Font name="Lucida Bright" size="12.0" />
          </font>
       </Text>
-      <Pane fx:id="initialBetPane" layoutX="464.0" layoutY="360.0" prefHeight="90.0" prefWidth="291.0">
+      <Pane fx:id="initialBetPane" layoutX="465.0" layoutY="348.0" prefHeight="90.0" prefWidth="291.0">
          <children>
             <Button focusTraversable="false" layoutX="51.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#setBetButton" style="-fx-background-radius: 5em;" text="\$10">
                <font>
@@ -81,7 +81,7 @@
       </Pane>
       <Pane layoutX="41.0" layoutY="550.0" prefHeight="44.0" prefWidth="247.0" style="-fx-border-color: black;">
          <children>
-            <Text fx:id="totalBetText" layoutX="14.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Bet:   $0.0" textOrigin="CENTER">
+            <Text fx:id="totalBetText" layoutX="14.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Bet:   $0.00" textOrigin="CENTER">
                <font>
                   <Font name="Lucida Bright" size="20.0" />
                </font>
@@ -90,14 +90,24 @@
       </Pane>
       <Pane layoutX="41.0" layoutY="608.0" prefHeight="44.0" prefWidth="247.0" style="-fx-border-color: black;">
          <children>
-            <Text layoutX="14.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance:     $1000.0" textAlignment="CENTER" textOrigin="CENTER">
+            <Text fx:id="balanceText" layoutX="14.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance:     $1000.00" textAlignment="CENTER" textOrigin="CENTER">
                <font>
                   <Font name="Lucida Bright" size="20.0" />
                </font>
             </Text>
          </children>
       </Pane>
-      <Button focusTraversable="false" layoutX="99.0" layoutY="99.0" mnemonicParsing="false" onMouseClicked="#restart" style="-fx-background-radius: 5em;" text="Restart">
+      <Button focusTraversable="false" layoutX="126.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#restart" style="-fx-background-radius: 5em;" text="Restart">
+         <font>
+            <Font name="Lucida Bright" size="12.0" />
+         </font>
+      </Button>
+      <Text fx:id="invalidBetError" fill="RED" layoutX="694.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid bet amount specified." visible="false">
+         <font>
+            <Font name="Lucida Bright" size="12.0" />
+         </font>
+      </Text>
+      <Button focusTraversable="false" layoutX="72.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#menu" style="-fx-background-radius: 5em;" text="Menu">
          <font>
             <Font name="Lucida Bright" size="12.0" />
          </font>

@@ -1,6 +1,7 @@
 package com.casino.games;
 
 import com.casino.Casino;
+import com.casino.Config;
 import com.casino.ui.AbstractPanel;
 import javafx.scene.Parent;
 import lombok.Getter;
@@ -14,6 +15,22 @@ public abstract class Game extends AbstractPanel {
         listen();
     }
 
+    public abstract void startGame();
+
+    public abstract void stopGame();
+
+    public abstract String getGameId();
+
+    public void menu() {
+        stopGame();
+        Casino casino = Casino.getInstance();
+        casino.getPrimaryStage().getScene().setRoot(casino.getScenes().get("select"));
+    }
+
+    public void setBalance(double amount) {
+        getUser().setBalance(amount);
+    }
+
     private void listen() {
         Thread listener = new Thread() {
             @SneakyThrows
@@ -23,18 +40,16 @@ public abstract class Game extends AbstractPanel {
                     Casino casino = Casino.getInstance();
                     Parent gameParent = casino.getScenes().get(getGameId());
 
-                    Thread.sleep(100);
+                    Thread.sleep(Config.GAME_STATE_UPDATE_INTERVAL);
                     if(casino.getPrimaryStage().getScene() == null)
                         continue;
 
                     if(casino.getPrimaryStage().getScene().getRoot().equals(gameParent)) {
-                        // This game is set as the root pane
                         if(!inGame) {
                             inGame = true;
                             startGame();
                         }
                     } else {
-                        // This game is not set as the root pane
                         if(inGame) {
                             inGame = false;
                             stopGame();
@@ -46,10 +61,4 @@ public abstract class Game extends AbstractPanel {
         listener.setDaemon(true);
         listener.start();
     }
-
-    public abstract void startGame();
-
-    public abstract void stopGame();
-
-    public abstract String getGameId();
 }

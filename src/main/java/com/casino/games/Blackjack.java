@@ -1,5 +1,7 @@
 package com.casino.games;
 
+import com.casino.Casino;
+import com.casino.Config;
 import com.casino.obj.Card;
 import com.casino.obj.Deck;
 import com.casino.obj.Hand;
@@ -28,11 +30,15 @@ public class Blackjack extends Game {
     @FXML private ImageView playerCardOneView;
     @FXML private ImageView playerCardTwoView;
     @FXML private ImageView dealerCardOneView;
+    @FXML private ImageView cardBackView;
 
-    // Components that display information on the players current bet
+    // Components that display information
     @FXML private Text totalBetText;
     @FXML private Button totalBetButton;
     @FXML private TextField betField;
+    @FXML private Text balanceText;
+    @FXML private Text insufficientFundsError;
+    @FXML private Text invalidBetError;
 
     // Store dynamic image views to delete them when the game finishes
     private final List<ImageView> playerImageViews = new ArrayList<>();
@@ -50,8 +56,8 @@ public class Blackjack extends Game {
 
         start = (bet) -> {
             // Update initial bet display text
-            totalBetText.setText(String.format("Total Bet:   $%.1f", bet));
-            totalBetButton.setText(String.valueOf(bet));
+            totalBetText.setText(Config.DEFAULT_BET_TEXT.replace("0.00", String.format("%.2f", bet)));
+            totalBetButton.setText(String.format("%.2f", bet));
 
             // Select cards for player and dealer
             Card firstCard = playerHand.takeCard(deck);
@@ -61,6 +67,7 @@ public class Blackjack extends Game {
             playerCardOneView.setImage(firstCard.getImage());
             playerCardTwoView.setImage(secondCard.getImage());
             dealerCardOneView.setImage(firstDealerCard.getImage());
+            cardBackView.setVisible(true);
 
             // Disable initial bet input components
             initialBetPane.setVisible(false);
@@ -71,50 +78,22 @@ public class Blackjack extends Game {
     public void stopGame() {
         deck.repopulate();
         deck.shuffle();
-
         playerHand.clear();
         dealerHand.clear();
-
-        totalBetText.setText("Total Bet:   $0.0");
-        totalBetButton.setText("0");
-        betField.setText("");
-
+        totalBetText.setText(Config.DEFAULT_BET_TEXT);
+        totalBetButton.setText(Config.DEFAULT_BET_BUTTON);
+        betField.setText(Config.EMPTY);
         playerCardOneView.setImage(null);
         playerCardTwoView.setImage(null);
         dealerCardOneView.setImage(null);
-
-        // Clean up dynamically created image views
-        playerImageViews.removeIf(view -> {
-            pane.getChildren().remove(view);
-            return true;
-        });
-
-        dealerImageViews.removeIf(view -> {
-            pane.getChildren().remove(view);
-            return true;
-        });
+        cardBackView.setVisible(false);
+        clearImageViews();
     }
 
     @FXML
     public void restart() {
         stopGame();
         startGame();
-    }
-
-    @FXML
-    public void setBetButton(MouseEvent event) {
-        Button button = (Button) event.getSource();
-        double value = Double.parseDouble(button.getText().replace("$", ""));
-        start.accept(value);
-    }
-
-    @FXML
-    public void setBetField(KeyEvent event) {
-        if(event.getCode().equals(KeyCode.ENTER)) {
-            TextField field = (TextField) event.getSource();
-            double value = Double.parseDouble(field.getText().replace("$", ""));
-            start.accept(value);
-        }
     }
 
     @Override
@@ -125,6 +104,76 @@ public class Blackjack extends Game {
     @FXML
     public void onHit() {
         System.out.println("Hit button clicked.");
+    }
+
+    @FXML
+    public void setBetButton(MouseEvent event) {
+        // Player specified initial bet using the preset buttons
+        Button button = (Button) event.getSource();
+        double bet = validateBet(button.getText());
+        if(bet == -1) return;
+        removeFunds(bet);
+        if(insufficientFundsError.isVisible()) insufficientFundsError.setVisible(false);
+        if(invalidBetError.isVisible()) invalidBetError.setVisible(false);
+        start.accept(bet);
+    }
+
+    @FXML
+    public void setBetField(KeyEvent event) {
+        // Player specified initial bet using the text field
+        if(event.getCode().equals(KeyCode.ENTER)) {
+            TextField field = (TextField) event.getSource();
+            double bet = validateBet(field.getText());
+            if(bet == -1) return;
+            removeFunds(bet);
+            if(insufficientFundsError.isVisible()) insufficientFundsError.setVisible(false);
+            if(invalidBetError.isVisible()) invalidBetError.setVisible(false);
+            start.accept(bet);
+        }
+    }
+
+    public double validateBet(String text) {
+        Casino casino = Casino.getInstance();
+        double value;
+        try {
+            value = Double.parseDouble(text.replace(Config.CURRENCY, ""));
+            if(value < 1) {
+                casino.displayError(invalidBetError);
+                return -1;
+            }
+        } catch(NumberFormatException e) {
+            casino.displayError(invalidBetError);
+            return -1;
+        }
+
+        double balance = getUser().getBalance();
+        if(value > balance) {
+            casino.displayError(insufficientFundsError);
+            return -1;
+        }
+        return value;
+    }
+
+    public void removeFunds(double amount) {
+        // Update the balance of the user
+        double balance = getUser().getBalance();
+        getUser().setBalance(balance = balance - amount);
+
+        // Update the display components
+        String balanceTxt = String.format("%.2f", balance);
+        balanceText.setText(Config.DEFAULT_BALANCE_TEXT.replace("0.00", balanceTxt));
+    }
+
+    public void clearImageViews() {
+        playerImageViews.removeIf(view -> {
+            pane.getChildren().remove(view);
+            return true;
+        });
+
+        dealerImageViews.removeIf(view -> {
+            pane.getChildren().remove(view);
+            return true;
+        });
     }
 
     @Override

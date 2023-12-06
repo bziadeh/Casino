@@ -18,12 +18,15 @@ public class Card {
     }
 
     private void setImage() {
-        String imageFormat = String.format("cards/%s_of_%s.png", (value < 10) ? value : rank, suit).toLowerCase();
-        try {
-            image = new Image(imageFormat);
-        } catch (Throwable th) {
-            // todo: handle exception
-            th.printStackTrace();
-        }
+        // run this async
+        new Thread(() -> {
+            String imageFormat = String.format("cards/%s_of_%s.png", (value < 10) ? value : rank, suit).toLowerCase();
+            try {
+                image = new Image(imageFormat);
+            } catch (Throwable th) {
+                // todo: handle exception
+                th.printStackTrace();
+            }
+        }).start();
     }
 }

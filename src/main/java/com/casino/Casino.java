@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lombok.Getter;
 import java.util.HashMap;
@@ -19,12 +20,15 @@ public class Casino extends Application {
     @Getter
     private static Casino instance;
 
+    // Stores all loaded scenes for future access.
     @Getter
     private final Map<String, Parent> scenes = new HashMap<>();
 
+    // Allows us to read and write to the database.
     @Getter
     private final DatabaseManager database = DatabaseManager.get();
 
+    // Allows us to change game state from other modules.
     @Getter
     private Stage primaryStage;
 
@@ -56,10 +60,25 @@ public class Casino extends Application {
         scenes.put("admin", adminParent);
         scenes.put("blackjack", blackjackParent);
 
-        stage.setTitle("Casino Games");
+        stage.setTitle(Config.PROGRAM_TITLE);
         stage.getIcons().add(new Image("icons/icon.png"));
         stage.setScene(new Scene(loginParent));
         stage.setResizable(false);
         stage.show();
+    }
+
+    public void displayError(Text text) {
+        if(text.isVisible()) {
+            return;
+        }
+        text.setVisible(true);
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            text.setVisible(false);
+        }).start();
     }
 }
