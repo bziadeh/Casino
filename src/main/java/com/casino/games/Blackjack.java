@@ -34,7 +34,7 @@ public class Blackjack extends Game {
     @FXML private ImageView playerCardOneView;
     @FXML private ImageView playerCardTwoView;
     @FXML private ImageView dealerCardOneView;
-    @FXML private ImageView cardBackView;
+    @FXML private ImageView dealerCardTwoView;
 
     // Components that display information
     @FXML private Text totalBetText;
@@ -75,7 +75,7 @@ public class Blackjack extends Game {
             playerCardOneView.setImage(firstCard.getImage());
             playerCardTwoView.setImage(secondCard.getImage());
             dealerCardOneView.setImage(firstDealerCard.getImage());
-            cardBackView.setVisible(true);
+            dealerCardTwoView.setVisible(true);
 
             // Disable initial bet input components
             initialBetPane.setVisible(false);
@@ -108,8 +108,8 @@ public class Blackjack extends Game {
         playerCardOneView.setImage(null);
         playerCardTwoView.setImage(null);
         dealerCardOneView.setImage(null);
-        cardBackView.setImage(new Image("cards/back_of_card.PNG"));
-        cardBackView.setVisible(false);
+        dealerCardTwoView.setImage(new Image("cards/back_of_card.PNG"));
+        dealerCardTwoView.setVisible(false);
         clearImageViews();
     }
 
@@ -126,9 +126,10 @@ public class Blackjack extends Game {
 
     @FXML
     public void onHit() {
-        if(isFinishedGame()) return;
+        if(isFinishedGame() || initialBetPane.isVisible()) return;
 
         Card card = playerHand.takeCard(deck);
+        createImageView(card, false);
 
         if(playerHand.getValue() == 21)
             win(2);
@@ -138,17 +139,13 @@ public class Blackjack extends Game {
 
     @FXML
     public void onStand() {
-        if(isFinishedGame()) return;
+        if(isFinishedGame() || initialBetPane.isVisible()) return;
 
         Card dealerCard = dealerHand.takeCard(deck);
         if(dealerHand.getCards().size() == 2) {
-            cardBackView.setImage(dealerCard.getImage());
+            dealerCardTwoView.setImage(dealerCard.getImage()); // flip hidden card
         } else {
-            ImageView view = new ImageView();
-            view.setImage(dealerCard.getImage());
-
-            dealerImageViews.add(view);
-            pane.getChildren().add(view);
+            createImageView(dealerCard, true);
         }
 
         if(dealerHand.getValue() > playerHand.getValue() && dealerHand.getValue() <= 21) {
@@ -167,11 +164,16 @@ public class Blackjack extends Game {
     public void setBetButton(MouseEvent event) {
         // Player specified initial bet using the preset buttons
         Button button = (Button) event.getSource();
+
         double bet = validateBet(button.getText());
         if(bet == -1) return;
-        removeFunds(bet);
+
+        updateBalance(-bet);
+
+        // disable old warning messages
         if(insufficientFundsError.isVisible()) insufficientFundsError.setVisible(false);
         if(invalidBetError.isVisible()) invalidBetError.setVisible(false);
+
         this.bet = bet;
         start.accept(bet);
     }
@@ -181,11 +183,16 @@ public class Blackjack extends Game {
         // Player specified initial bet using the text field
         if(event.getCode().equals(KeyCode.ENTER)) {
             TextField field = (TextField) event.getSource();
+
             double bet = validateBet(field.getText());
             if(bet == -1) return;
-            removeFunds(bet);
+
+            updateBalance(-bet);
+
+            // disable old warning messages
             if(insufficientFundsError.isVisible()) insufficientFundsError.setVisible(false);
             if(invalidBetError.isVisible()) invalidBetError.setVisible(false);
+
             this.bet = bet;
             start.accept(bet);
         }
@@ -213,10 +220,10 @@ public class Blackjack extends Game {
         return value;
     }
 
-    public void removeFunds(double amount) {
+    public void updateBalance(double amount) {
         // Update the balance of the user
         double balance = getUser().getBalance();
-        getUser().setBalance(balance = balance - amount);
+        getUser().setBalance(balance = balance + amount);
 
         // Update the display components
         String balanceTxt = String.format("%.2f", balance);
@@ -236,9 +243,11 @@ public class Blackjack extends Game {
     }
 
     private void win(double multiplier) {
+        double moneyEarned = bet * multiplier;
         wonText.setVisible(true);
-        wonText.setText(Config.DEFAULT_WIN_TEXT.replace("0.00", String.format("%.2f", bet * multiplier)));
+        wonText.setText(Config.DEFAULT_WIN_TEXT.replace("0.00", String.format("%.2f", moneyEarned)));
         restartButton.setVisible(true);
+        updateBalance(moneyEarned);
         setFinishedGame(true);
     }
 
@@ -246,6 +255,36 @@ public class Blackjack extends Game {
         loseText.setVisible(true);
         restartButton.setVisible(true);
         setFinishedGame(true);
+    }
+
+    private void createImageView(Card card, boolean dealer) {
+        List<ImageView> cardViews = dealer ? dealerImageViews : playerImageViews;
+
+        // grab card width and height from predefined player cards
+        double cardWidth = playerCardOneView.getFitWidth();
+        double cardHeight = playerCardOneView.getFitHeight();
+
+        ImageView viewOne = dealer ? dealerCardOneView : playerCardOneView;
+        ImageView viewTwo = dealer ? dealerCardTwoView : playerCardTwoView;
+
+        ImageView baseView = cardViews.isEmpty() ? viewTwo : cardViews.get(cardViews.size() - 1);
+        ImageView view = new ImageView();
+        view.setImage(card.getImage());
+        view.setFitWidth(cardWidth);
+        view.setFitHeight(cardHeight);
+
+        double space = viewTwo.getLayoutX() - viewOne.getLayoutX() - cardWidth;
+        double x = baseView.getLayoutX() + view.getFitWidth() + space;
+        double y = baseView.getLayoutY();
+        view.setLayoutX(x);
+        view.setLayoutY(y);
+
+        if(dealer)
+            dealerImageViews.add(view);
+        else
+            playerImageViews.add(view);
+
+        pane.getChildren().add(view);
     }
 
     @Override

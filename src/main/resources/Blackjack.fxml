@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.casino.games.Blackjack">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.casino.games.Blackjack">
    <children>
       <Button fx:id="totalBetButton" focusTraversable="false" layoutX="580.0" layoutY="520.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="60.0" style="-fx-background-radius: 5em;" text="0">
          <font>
@@ -38,7 +38,7 @@
       </Button>
       <ImageView fx:id="playerCardOneView" fitHeight="144.0" fitWidth="99.0" layoutX="498.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="playerCardTwoView" fitHeight="144.0" fitWidth="99.0" layoutX="622.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="cardBackView" fitHeight="150.0" fitWidth="200.0" layoutX="623.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="dealerCardTwoView" fitHeight="150.0" fitWidth="200.0" layoutX="623.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@cards/back_of_card.PNG" />
          </image>
@@ -97,7 +97,7 @@
             </Text>
          </children>
       </Pane>
-      <Button fx:id="restartButton" focusTraversable="false" layoutX="967.0" layoutY="433.0" mnemonicParsing="false" onMouseClicked="#restart" style="-fx-background-radius: 5em;" text="Play Again" visible="false">
+      <Button fx:id="restartButton" focusTraversable="false" layoutX="967.0" layoutY="602.0" mnemonicParsing="false" onMouseClicked="#restart" style="-fx-background-radius: 5em;" text="Play Again" visible="false">
          <font>
             <Font name="Lucida Bright" size="12.0" />
          </font>
@@ -107,17 +107,17 @@
             <Font name="Lucida Bright" size="12.0" />
          </font>
       </Text>
-      <Button focusTraversable="false" layoutX="72.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#menu" style="-fx-background-radius: 5em;" text="Menu">
+      <Button focusTraversable="false" layoutX="1181.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#menu" style="-fx-background-radius: 5em;" text="Menu">
          <font>
             <Font name="Lucida Bright" size="12.0" />
          </font>
       </Button>
-      <Text fx:id="wonText" fill="#14c400" layoutX="861.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have won $0.00" visible="false">
+      <Text fx:id="wonText" fill="#14c400" layoutX="864.0" layoutY="585.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have won $0.00" visible="false">
          <font>
             <Font size="32.0" />
          </font>
       </Text>
-      <Text fx:id="loseText" fill="#e13535" layoutX="904.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have lost." visible="false">
+      <Text fx:id="loseText" fill="#e13535" layoutX="907.0" layoutY="585.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have lost." visible="false">
          <font>
             <Font size="32.0" />
          </font>

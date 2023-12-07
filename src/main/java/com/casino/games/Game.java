@@ -29,10 +29,6 @@ public abstract class Game extends AbstractPanel {
         casino.getPrimaryStage().getScene().setRoot(casino.getScenes().get("select"));
     }
 
-    public void setBalance(double amount) {
-        getUser().setBalance(amount);
-    }
-
     private void listen() {
         Thread listener = new Thread() {
             @SneakyThrows

@@ -19,4 +19,6 @@ public class Config {
     public static final String EMPTY = "";
 
     public static final int GAME_STATE_UPDATE_INTERVAL = 100;
+
+    public static final int SPACE_BETWEEN_CARDS = 124;
 }
