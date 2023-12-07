@@ -9,6 +9,7 @@ import com.casino.user.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,7 +25,10 @@ public class Blackjack extends Game {
 
     @FXML private Pane pane;
     @FXML private Pane initialBetPane;
+    @FXML private Button restartButton;
+
     private Consumer<Double> start;
+    private double bet = 0.0;
 
     // Pre-defined starting image views, others are created at runtime
     @FXML private ImageView playerCardOneView;
@@ -39,6 +43,8 @@ public class Blackjack extends Game {
     @FXML private Text balanceText;
     @FXML private Text insufficientFundsError;
     @FXML private Text invalidBetError;
+    @FXML private Text wonText;
+    @FXML private Text loseText;
 
     // Store dynamic image views to delete them when the game finishes
     private final List<ImageView> playerImageViews = new ArrayList<>();
@@ -50,6 +56,8 @@ public class Blackjack extends Game {
 
     @Override
     public void startGame() {
+        setFinishedGame(false);
+
         if(!initialBetPane.isVisible()) {
             initialBetPane.setVisible(true);
         }
@@ -71,6 +79,11 @@ public class Blackjack extends Game {
 
             // Disable initial bet input components
             initialBetPane.setVisible(false);
+
+            // Check if the player immediately hits Blackjack
+            if(playerHand.getValue() == 21) {
+                win(3);
+            }
         };
     }
 
@@ -78,14 +91,24 @@ public class Blackjack extends Game {
     public void stopGame() {
         deck.repopulate();
         deck.shuffle();
+
+        bet = 0.0;
         playerHand.clear();
         dealerHand.clear();
+
         totalBetText.setText(Config.DEFAULT_BET_TEXT);
         totalBetButton.setText(Config.DEFAULT_BET_BUTTON);
+
+        restartButton.setVisible(false);
+        wonText.setText(Config.DEFAULT_WIN_TEXT);
+        wonText.setVisible(false);
+        loseText.setVisible(false);
+
         betField.setText(Config.EMPTY);
         playerCardOneView.setImage(null);
         playerCardTwoView.setImage(null);
         dealerCardOneView.setImage(null);
+        cardBackView.setImage(new Image("cards/back_of_card.PNG"));
         cardBackView.setVisible(false);
         clearImageViews();
     }
@@ -103,7 +126,41 @@ public class Blackjack extends Game {
 
     @FXML
     public void onHit() {
-        System.out.println("Hit button clicked.");
+        if(isFinishedGame()) return;
+
+        Card card = playerHand.takeCard(deck);
+
+        if(playerHand.getValue() == 21)
+            win(2);
+        else if (playerHand.getValue() > 21)
+            lose();
+    }
+
+    @FXML
+    public void onStand() {
+        if(isFinishedGame()) return;
+
+        Card dealerCard = dealerHand.takeCard(deck);
+        if(dealerHand.getCards().size() == 2) {
+            cardBackView.setImage(dealerCard.getImage());
+        } else {
+            ImageView view = new ImageView();
+            view.setImage(dealerCard.getImage());
+
+            dealerImageViews.add(view);
+            pane.getChildren().add(view);
+        }
+
+        if(dealerHand.getValue() > playerHand.getValue() && dealerHand.getValue() <= 21) {
+            lose();
+            return;
+        }
+
+        if(dealerHand.getValue() > 21) {
+            win(2);
+        } else {
+            onStand();
+        }
     }
 
     @FXML
@@ -115,6 +172,7 @@ public class Blackjack extends Game {
         removeFunds(bet);
         if(insufficientFundsError.isVisible()) insufficientFundsError.setVisible(false);
         if(invalidBetError.isVisible()) invalidBetError.setVisible(false);
+        this.bet = bet;
         start.accept(bet);
     }
 
@@ -128,6 +186,7 @@ public class Blackjack extends Game {
             removeFunds(bet);
             if(insufficientFundsError.isVisible()) insufficientFundsError.setVisible(false);
             if(invalidBetError.isVisible()) invalidBetError.setVisible(false);
+            this.bet = bet;
             start.accept(bet);
         }
     }
@@ -174,6 +233,19 @@ public class Blackjack extends Game {
             pane.getChildren().remove(view);
             return true;
         });
+    }
+
+    private void win(double multiplier) {
+        wonText.setVisible(true);
+        wonText.setText(Config.DEFAULT_WIN_TEXT.replace("0.00", String.format("%.2f", bet * multiplier)));
+        restartButton.setVisible(true);
+        setFinishedGame(true);
+    }
+
+    private void lose() {
+        loseText.setVisible(true);
+        restartButton.setVisible(true);
+        setFinishedGame(true);
     }
 
     @Override

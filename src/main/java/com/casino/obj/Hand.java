@@ -17,6 +17,25 @@ public class Hand {
         return card;
     }
 
+    public int getValue() {
+        int value = 0;
+        List<Card> processLater = new ArrayList<>();
+
+        for(Card card : cards) {
+            int cardValue = card.getValue();
+            if(cardValue < 11) {
+                value += cardValue;
+            } else {
+                processLater.add(card);
+            }
+        }
+
+        for(Card card : processLater) {
+            value += (card.getValue() + value > 21) ? 1 : 11;
+        }
+        return value;
+    }
+
     public void clear() {
         cards.clear();
     }

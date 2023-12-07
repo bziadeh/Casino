@@ -8,6 +8,10 @@ public class Config {
 
     public static final String DEFAULT_BALANCE_TEXT = "Balance:     $0.00";
 
+    public static final String DEFAULT_WIN_TEXT = "You have won $0.00";
+
+    public static final String DEFAULT_LOSE_TEXT = "You have lost.";
+
     public static final String DEFAULT_BET_BUTTON = "0";
 
     public static final String CURRENCY = "$";

@@ -5,11 +5,13 @@ import com.casino.Config;
 import com.casino.ui.AbstractPanel;
 import javafx.scene.Parent;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 
 public abstract class Game extends AbstractPanel {
 
     @Getter private boolean inGame;
+    @Getter @Setter private boolean finishedGame;
 
     public Game() {
         listen();

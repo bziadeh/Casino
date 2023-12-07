@@ -31,7 +31,7 @@
             <Font name="Lucida Bright" size="22.0" />
          </font>
       </Button>
-      <Button focusTraversable="false" layoutX="673.0" layoutY="608.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="73.0" style="-fx-background-radius: 5em;" text="Stand">
+      <Button focusTraversable="false" layoutX="673.0" layoutY="608.0" mnemonicParsing="false" onMouseClicked="#onStand" prefHeight="59.0" prefWidth="73.0" style="-fx-background-radius: 5em;" text="Stand">
          <font>
             <Font name="Lucida Bright" size="17.0" />
          </font>
@@ -97,7 +97,7 @@
             </Text>
          </children>
       </Pane>
-      <Button focusTraversable="false" layoutX="126.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#restart" style="-fx-background-radius: 5em;" text="Restart">
+      <Button fx:id="restartButton" focusTraversable="false" layoutX="967.0" layoutY="433.0" mnemonicParsing="false" onMouseClicked="#restart" style="-fx-background-radius: 5em;" text="Play Again" visible="false">
          <font>
             <Font name="Lucida Bright" size="12.0" />
          </font>
@@ -112,5 +112,15 @@
             <Font name="Lucida Bright" size="12.0" />
          </font>
       </Button>
+      <Text fx:id="wonText" fill="#14c400" layoutX="861.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have won $0.00" visible="false">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Text>
+      <Text fx:id="loseText" fill="#e13535" layoutX="904.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have lost." visible="false">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Text>
    </children>
 </Pane>
